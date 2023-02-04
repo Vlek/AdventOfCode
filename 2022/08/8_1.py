@@ -24,6 +24,7 @@ import pytest
 def calcMostScenicTreeScore(tree_map: list[str]) -> int:
     """Takes a map of tree heights, outputs num visible."""
     most_scenic_view_score: int = 0
+
     map_length: int = len(tree_map)
     map_width: int = len(tree_map[0])
 
@@ -34,50 +35,50 @@ def calcMostScenicTreeScore(tree_map: list[str]) -> int:
             top_score: int = 0
             bottom_score: int = 0
 
-            current_tree: int = int(tree_map[row_index][tree_index])
+            current_tree_height: int = int(tree_map[row_index][tree_index])
 
             # Calculate left score:
             for second_tree_index in range(tree_index - 1, -1, -1):
-                second_tree: int = int(tree_map[row_index][second_tree_index])
+                second_tree_height: int = int(tree_map[row_index][second_tree_index])
 
                 left_score += 1
-
-                if current_tree < second_tree:
+                if current_tree_height <= second_tree_height:
                     break
 
             # Calculate right score:
             for second_tree_index in range(tree_index + 1, map_width):
-                second_tree: int = int(tree_map[row_index][second_tree_index])
+                second_tree_height: int = int(tree_map[row_index][second_tree_index])
 
                 right_score += 1
-
-                if current_tree < second_tree:
+                if current_tree_height <= second_tree_height:
                     break
 
             # Calculate bottom score:
             for second_tree_row_index in range(row_index + 1, map_length):
-                second_tree: int = int(tree_map[second_tree_row_index][tree_index])
+                second_tree_height: int = int(
+                    tree_map[second_tree_row_index][tree_index]
+                )
 
                 bottom_score += 1
-
-                if current_tree < second_tree:
+                if current_tree_height <= second_tree_height:
                     break
 
             # Calculate top score:
             for second_tree_row_index in range(row_index - 1, -1, -1):
-                second_tree: int = int(tree_map[second_tree_row_index][tree_index])
+                second_tree_height: int = int(
+                    tree_map[second_tree_row_index][tree_index]
+                )
 
                 top_score += 1
-
-                if current_tree < second_tree:
+                if current_tree_height <= second_tree_height:
                     break
 
-            current_trees_science_score = (
+            current_trees_scenic_score = (
                 left_score * right_score * top_score * bottom_score
             )
 
-            if current_trees_science_score > most_scenic_view_score:
-                most_scenic_view_score = current_trees_science_score
+            if current_trees_scenic_score > most_scenic_view_score:
+                most_scenic_view_score = current_trees_scenic_score
 
     return most_scenic_view_score
 
@@ -107,7 +108,7 @@ with open("8_input.txt", "r") as line_text:
                 "33549",
                 "35390",
             ],
-            12,
+            8,
         ],
     ],
 )
